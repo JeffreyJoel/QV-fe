@@ -18,20 +18,20 @@ export const NavBar = (props: { isApp?: boolean }) => {
           </div>
         </Link>
         <nav className="hidden md:flex items-center space-x-8">
-          <Link
+          {/* <Link
             href="#"
             className="text-white text-lg hover:text-[#00FF66] transition-colors"
           >
             About
-          </Link>
+          </Link> */}
           <Link
             href="/discover"
             className="text-white text-lg hover:text-[#00FF66] transition-colors"
           >
             Discover
           </Link>
-          <CreateModal />
-        </nav>
+          {/* <CreateModal /> */}
+   
         <div>
           {isApp ? (
             <>
@@ -45,6 +45,7 @@ export const NavBar = (props: { isApp?: boolean }) => {
             </Link>
           )}
         </div>
+        </nav>
       </header>
     </>
   );

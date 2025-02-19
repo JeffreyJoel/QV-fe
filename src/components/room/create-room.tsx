@@ -1,179 +1,88 @@
-import { Button } from "@/components/ui/button";
+"use client"
+
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { useState } from "react";
-import { Calendar, Globe, Users, Plus, Minus } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Plus } from "lucide-react"
+import { useState } from "react"
+import { useToast } from "@/hooks/use-toast"
+import { useRoom } from "@/hooks/useRoom" // Adjust the import path as necessary
 
-interface Proposal {
-  id: number;
-  title: string;
-  description: string;
-}
+export function CreateRoomForm() {
+  const [open, setOpen] = useState(false)
+  const { toast } = useToast()
+  const { createRoom, loading, error } = useRoom()
 
-export default function CreateRoom() {
-  const [proposals, setProposals] = useState<Proposal[]>([
-    { id: 1, title: "", description: "" },
-  ]);
-  const [isPublic, setIsPublic] = useState(true);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
 
-  const addProposal = () => {
-    setProposals([
-      ...proposals,
-      { id: proposals.length + 1, title: "", description: "" },
-    ]);
-  };
-
-  const removeProposal = (id: number) => {
-    if (proposals.length > 1) {
-      setProposals(proposals.filter((p) => p.id !== id));
+    try {
+      await createRoom(
+        formData.get("name") as string,
+        formData.get("description") as string,
+        formData.get("entryKey") as string,
+      )
+      toast({
+        title: "Success",
+        description: "Room created successfully",
+      })
+      setOpen(false)
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create room",
+        variant: "destructive",
+      })
     }
-  };
-
-  const updateProposal = (
-    id: number,
-    field: "title" | "description",
-    value: string
-  ) => {
-    setProposals(
-      proposals.map((p) => (p.id === id ? { ...p, [field]: value } : p))
-    );
-  };
+  }
 
   return (
-    <DialogContent className="sm:max-w-[425px] md:max-w-[600px]   overflow-y-auto">
-      <DialogTitle>Create Voting Session</DialogTitle>
-      <div className="h-[600px] pt-8 pb-32">
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            {/* <div className="flex items-center space-x-2">
-                <Globe className="w-4 h-4" />
-                <span className="text-sm">Visibility</span>
-                <Switch checked={isPublic} onCheckedChange={setIsPublic} />
-                <span className="text-sm">
-                  {isPublic ? "Public" : "Private"}
-                </span>
-              </div> */}
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>
+          <Plus className="mr-2 h-4 w-4" />
+          Create Room
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Create New Room</DialogTitle>
+          <DialogDescription>Create a new voting room with an entry key for participants</DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Room Name</Label>
+            <Input id="name" name="name" placeholder="Enter room name" required />
           </div>
-          <p className="text-md">
-            Set up your voting session details and proposals
-          </p>
-        </div>
-        <div className="space-y-6 pb-8">
-          <div>
-            <Label htmlFor="session-name">Session Name</Label>
+          <div className="space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <Textarea id="description" name="description" placeholder="Describe the purpose of this room" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="entryKey">Entry Key</Label>
             <Input
-              id="session-name"
-              placeholder="Enter voting session name"
-              className="text-lg mt-1"
+              id="entryKey"
+              name="entryKey"
+              type="password"
+              placeholder="Set an entry key for participants"
+              required
             />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="voter-access">Voter Access</Label>
-            <Select defaultValue="all">
-              <SelectTrigger id="voter-access">
-                <SelectValue placeholder="Select voter access" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Members</SelectItem>
-                <SelectItem value="token">Token Holders</SelectItem>
-                <SelectItem value="whitelist">Whitelisted</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="session-description">Session Description</Label>
-            <Textarea
-              id="session-description"
-              placeholder="Add a description for your voting session..."
-              className="min-h-[100px]"
-            />
-          </div>
-
-          <Separator />
-
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label>Proposals</Label>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={addProposal}
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Proposal
-              </Button>
-            </div>
-
-            {proposals.map((proposal, index) => (
-              <Card key={proposal.id}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Proposal {index + 1}
-                  </CardTitle>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => removeProposal(proposal.id)}
-                    disabled={proposals.length === 1}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                </CardHeader>
-                <div className="space-y-2">
-                  <Input
-                    placeholder="Proposal Title"
-                    value={proposal.title}
-                    onChange={(e) =>
-                      updateProposal(proposal.id, "title", e.target.value)
-                    }
-                  />
-                  <Textarea
-                    placeholder="Proposal Description"
-                    value={proposal.description}
-                    onChange={(e) =>
-                      updateProposal(proposal.id, "description", e.target.value)
-                    }
-                  />
-                </div>
-              </Card>
-            ))}
-          </div>
-          <Button className="w-full mb-8" size="lg">
-            Create Voting Session
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Creating..." : "Create Room"}
           </Button>
-        </div>
-      </div>
-      <DialogFooter className="pt-8"></DialogFooter>
-    </DialogContent>
-  );
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
 }
