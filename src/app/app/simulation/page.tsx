@@ -1,6 +1,4 @@
 "use client"
-
-import { VotingResults } from "@/components/voting-results"
 import { simulateVotingSession } from "@/utils/simulation"
 import { useEffect, useState } from "react"
 import type { VotingResults as VotingResultsType } from "@/types/voting"

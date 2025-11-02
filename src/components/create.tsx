@@ -31,15 +31,11 @@ export default function CreateModal() {
 
   const handleSubmit = (type: "room" | "session") => (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(`Creating ${type}`);
     setActiveModal("select");
   };
 
   return (
-    <Dialog
-    //   open={activeModal !== null}
-    //   onOpenChange={(open) => setActiveModal(open ? "select" : null)}
-    >
+    <Dialog>
       <DialogTrigger asChild>
         <p className="text-lg hover:text-[#00FF66] cursor-pointer">
           Create
@@ -62,10 +58,7 @@ export default function CreateModal() {
             >
               <Home style={{height:"32px", width:"32px"}} />
               <div className="space-y-2 text-center">
-              <h3 className="font-semibold text-lg">Create Room</h3>
-                {/* <p className="text-sm text-muted-foreground">
-                  Create a new room for voting sessions
-                </p> */}
+                <h3 className="font-semibold text-lg">Create Room</h3>
               </div>
             </Button>
             <Button
@@ -76,9 +69,6 @@ export default function CreateModal() {
               <VoteIcon style={{height:"32px", width:"32px"}} />
               <div className="space-y-2 text-center">
                 <h3 className="font-semibold text-lg">Create Session</h3>
-                {/* <p className="text-sm text-muted-foreground">
-                  Start a new voting session in a room
-                </p> */}
               </div>
             </Button>
           </div>

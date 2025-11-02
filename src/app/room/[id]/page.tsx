@@ -21,14 +21,8 @@ import { NavBar } from "@/components/shared/navbar";
 
 export default function RoomPage() {
   const { address } = useAppKitAccount();
-  const {
-    fetchRooms,
-    rooms,
-    fetchSessionsByRoom,
-    sessionsByRoom,
-    isLoading,
-    error,
-  } = useRoom();
+  const { rooms, sessionsByRoom, loading, error, fetchRooms, fetchSessionsByRoom } =
+    useRoom();
 
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
   const params = useParams();
@@ -40,7 +34,6 @@ export default function RoomPage() {
     const fetchData = async () => {
       await fetchRooms();
       await fetchSessionsByRoom(id);
-      console.log(sessionsByRoom);
     };
 
     fetchData();
@@ -55,10 +48,10 @@ export default function RoomPage() {
   }, [rooms, id]);
 
   const sessions = sessionsByRoom || [];
-  const isLoadingData = isLoading("fetchRooms") || isLoading("fetchSessions");
+  const isLoadingData = loading;
 
   // Show loading state while fetching initial data
-  if (isLoading("fetchRooms") || isLoading("fetchSessions")) {
+  if (isLoadingData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-lg text-muted-foreground">Loading room details...</p>

@@ -1,11 +1,3 @@
-// export interface Room {
-//     id: string
-//     name: string
-//     description: string
-//     adminAddress: string
-//     createdAt: string
-//     sessions: VotingSession[]
-//   }
 export interface Room {
   id: string;
   name: string;

@@ -20,7 +20,7 @@ import { useRoom } from "@/hooks/useRoom" // Adjust the import path as necessary
 export function CreateRoomForm() {
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
-  const { createRoom, loading, error } = useRoom()
+  const { createRoom, loading } = useRoom()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-// import { useToast } from "@/components/ui/use-toast"
 import { Loader2, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -14,45 +13,11 @@ export function SignUpForm() {
   const [loading, setLoading] = useState(false)
   const [walletConnected, setWalletConnected] = useState(false)
   const [walletAddress, setWalletAddress] = useState("")
-//   const { toast } = useToast()
   const router = useRouter()
-
-//   const connectWallet = async () => {
-//     if (typeof window.ethereum !== "undefined") {
-//       try {
-//         const accounts = await window.ethereum.request({
-//           method: "eth_requestAccounts",
-//         })
-//         setWalletAddress(accounts[0])
-//         setWalletConnected(true)
-//         toast({
-//           title: "Wallet Connected",
-//           description: "Your wallet has been connected successfully.",
-//         })
-//       } catch (error) {
-//         toast({
-//           title: "Error",
-//           description: "Failed to connect wallet. Please try again.",
-//           variant: "destructive",
-//         })
-//       }
-//     } else {
-//       toast({
-//         title: "Error",
-//         description: "Please install MetaMask to continue.",
-//         variant: "destructive",
-//       })
-//     }
-//   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!walletConnected) {
-    //   toast({
-    //     title: "Error",
-    //     description: "Please connect your wallet first.",
-    //     variant: "destructive",
-    //   })
       return
     }
 
@@ -61,19 +26,10 @@ export function SignUpForm() {
     const matNo = formData.get("matNo") as string
 
     try {
-      // Add API call to create user here
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
-    //   toast({
-    //     title: "Success",
-    //     description: "Your account has been created successfully.",
-    //   })
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       router.push("/")
     } catch (error) {
-    //   toast({
-    //     title: "Error",
-    //     description: "Failed to create account. Please try again.",
-    //     variant: "destructive",
-    //   })
+      // Handle error
     } finally {
       setLoading(false)
     }

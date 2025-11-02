@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Globe, Users, Plus, Minus } from "lucide-react";
+import { Globe, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,14 +16,10 @@ import {
 import { Switch } from "@/components/ui/switch";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { NavBar } from "@/components/shared/navbar";
 import { DateTimePicker } from "@/components/shared/DateTimePicker";
 
 interface Proposal {

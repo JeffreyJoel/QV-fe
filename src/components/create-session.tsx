@@ -1,15 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { Calendar, Globe, Users, Plus, Minus } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,11 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import {
   Card,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -41,7 +34,6 @@ export default function CreateSession() {
   const [proposals, setProposals] = useState<Proposal[]>([
     { id: 1, title: "", description: "" },
   ]);
-  const [isPublic, setIsPublic] = useState(true);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
 

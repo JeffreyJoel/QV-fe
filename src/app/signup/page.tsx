@@ -1,14 +1,7 @@
 "use client"
 
 import { SignUpForm } from "@/components/signup/signup-form"
-import { Boxes } from "lucide-react"
 import Link from "next/link"
-import { Mona_Sans as FontSans } from "next/font/google"
-
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
 
 export default function SignUpPage() {
   return (
