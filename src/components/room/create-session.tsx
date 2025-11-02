@@ -82,15 +82,6 @@ export function CreateSessionForm({ roomId }: CreateSessionFormProps) {
       const startTimestamp = Math.floor(startDate.getTime() / 1000)
       const endTimestamp = Math.floor(endDate.getTime() / 1000)
 
-      console.log('Submitting session with data:', {
-        roomId: Number(roomId),
-        title,
-        description,
-        startTime: startTimestamp,
-        endTime: endTimestamp,
-        proposals
-      })
-
       await createVotingSession(
         Number(roomId),
         title,
@@ -100,18 +91,8 @@ export function CreateSessionForm({ roomId }: CreateSessionFormProps) {
         100, // Default credits per voter
         proposals
       )
-
-      // if (success) {
-      //   console.log('Session created successfully')
-      //   resetForm()
-      //   setOpen(false)
-      // } else {
-      //   console.log();
-        
-      //   setError("Failed to create session")
-      // }
     } catch (err) {
-      console.error('Error creating session:', err)
+      // Error creating session
       setError(err instanceof Error ? err.message : "Failed to create session")
     }
   }

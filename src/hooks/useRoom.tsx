@@ -6,8 +6,6 @@ import { useAppKitProvider } from "@reown/appkit/react";
 import { getContract } from "@/connection/contracts";
 import { Room } from "@/types";
 
-//TODO: update with correct interfaces
-
 interface ContractError {
   code: string;
   message: string;
@@ -79,7 +77,6 @@ export const useRoom = () => {
         message: err.reason || err.message || "Failed to create room",
         transaction: err.transaction
       });
-      console.log(err);
       
       return false;
     } finally {
@@ -151,12 +148,10 @@ export const useRoom = () => {
           };
         })
       );
-      console.log(roomDetails);
       
       setRooms(roomDetails);
     } catch (err: any) {
       setError(err);
-      console.error('Error fetching rooms:', err);
     } finally {
       setLoading((prev) => ({ ...prev, fetchRooms: false }));
     }
@@ -200,7 +195,6 @@ export const useRoom = () => {
       );
       
       setSessionsByRoom(sessionDetails);
-      console.log(sessionDetails);
       
     } catch (err: any) {
       setError({
@@ -208,7 +202,6 @@ export const useRoom = () => {
         message: err.reason || err.message || "Failed to fetch sessions",
         transaction: err.transaction
       });
-      console.error('Error fetching sessions:', err);
     } finally {
       setLoading((prev) => ({ ...prev, fetchSessions: false }));
     }
@@ -252,8 +245,6 @@ export const useRoom = () => {
       
       setProposalsBySession(proposalDetails);
       
-      console.log(`Proposals for session ${sessionId}:`, proposalDetails);
-      
       return proposalDetails;
       
     } catch (err: any) {
@@ -262,7 +253,6 @@ export const useRoom = () => {
         message: err.reason || err.message || "Failed to fetch proposals",
         transaction: err.transaction
       });
-      console.error('Error fetching proposals:', err);
       return [];
     } finally {
       setLoading((prev) => ({ ...prev, fetchProposals: false }));
@@ -291,7 +281,6 @@ export const useRoom = () => {
         message: err.reason || err.message || "Failed to join room",
         transaction: err.transaction
       });
-      console.log('Error joining room:', err);
       return false;
     } finally {
       setLoading((prev) => ({ ...prev, joinRoom: false }));
@@ -370,7 +359,7 @@ export const useRoom = () => {
               totalCreditsByProposal[proposalTitle] += credits;
             }
           } catch (err: any) {
-            console.error(`Error getting votes for proposal ${proposalId}:`, err);
+            // Error getting votes for proposal
           }
         }
 
@@ -404,7 +393,6 @@ export const useRoom = () => {
         message: err.reason || err.message || "Failed to process voting results",
         transaction: err.transaction
       });
-      console.error('Error processing voting results:', err);
       return null;
     } finally {
       setLoading((prev) => ({ ...prev, processVotingResults: false }));

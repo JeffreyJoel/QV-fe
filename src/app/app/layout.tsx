@@ -1,7 +1,6 @@
 "use client";
 
 import { NavBar } from "@/components/shared/navbar";
-import { Footer } from "react-day-picker";
 
 export default function RootLayout({
   children,
@@ -12,7 +11,6 @@ export default function RootLayout({
     <div>
       <NavBar isApp={true} />
       {children}
-           {/* <Footer/> */}
     </div>
   );
 }

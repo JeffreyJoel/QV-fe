@@ -80,9 +80,6 @@ const addresses =["0xddb342ecc94236c29a5307d3757d0724d759453c", "0x02F6302D1b7C9
     credits: totalCreditsByProposal?.[name],
   }));
 
-console.log(votingResults);
-
-
   return (
     <div className="grid gap-6">
       <div className="grid gap-6 md:grid-cols-2">
