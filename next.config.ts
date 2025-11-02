@@ -5,8 +5,14 @@ const nextConfig: NextConfig = {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')
     return config
   },
+  turbopack: {},
   images: {
-    domains: ["img.freepik.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+      },
+    ],
   },
 };
 

@@ -8,9 +8,9 @@ import { ReactNode } from 'react';
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 
 const metadata = {
-  name: 'My Website',
-  description: 'My Website description',
-  url: 'https://mywebsite.com',
+  name: 'QV FE',
+  description: 'Room based Quadratic voting application',
+  url: 'https://qv-fe.vercel.app',
   icons: ['https://avatars.mywebsite.com/']
 }
 
