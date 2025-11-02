@@ -42,6 +42,8 @@ export default function CreateSession() {
     { id: 1, title: "", description: "" },
   ]);
   const [isPublic, setIsPublic] = useState(true);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
 
   const addProposal = () => {
     setProposals([
@@ -102,13 +104,13 @@ export default function CreateSession() {
                   <Label htmlFor="start-date" className="text-sm">
                     Start Date
                   </Label>
-                  <DateTimePicker/>
+                  <DateTimePicker date={startDate} setDate={setStartDate} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="end-date" className="text-sm">
                     End Date
                   </Label>
-                  <DateTimePicker/>
+                  <DateTimePicker date={endDate} setDate={setEndDate} />
                 </div>
               </div>
             </div>

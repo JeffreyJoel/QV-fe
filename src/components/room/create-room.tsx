@@ -78,8 +78,8 @@ export function CreateRoomForm() {
               required
             />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating..." : "Create Room"}
+          <Button type="submit" className="w-full" disabled={loading.createRoom}>
+            {loading.createRoom ? "Creating..." : "Create Room"}
           </Button>
         </form>
       </DialogContent>
